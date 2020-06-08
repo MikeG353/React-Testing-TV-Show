@@ -7,13 +7,23 @@ jest.mock("./api/fetchShow")
 test("App fetches and reders data", async () => {
     // was never able to get this to work asyncronously, Need additional help here.
     mockFetchShow.mockResolvedValueOnce(episodesFixture)
-    console.log(mockFetchShow)
+    console.log("log of fetchshow",mockFetchShow)
     const { findByText, getByText } = render(<App  />)
     const fetchingMessage = getByText(/Fetching data.../i)
+    const chapterOne = getByText(/Chapter One:/i)
 
-    await waitFor(() => {
-        const dropdown = findByText(/select a season/i)
-        
-    })
+    expect(fetchingMessage).toBeInTheDocument()
+
+
+    // await waitFor(() => {
+    //     const dropdown = findByText(/select a season/i)
+    //     expect(dropdown).toBeInTheDocument()
+    //     expect(fetchingMessage).toBeInTheDocument()
+    // })
+    const dropdown = await findByText(/select a season/i)
+        expect(dropdown).toBeInTheDocument()
+        fireEvent
+
+
 
 })
